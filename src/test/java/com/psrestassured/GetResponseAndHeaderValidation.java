@@ -2,9 +2,7 @@ package com.psrestassured;
 
 import io.restassured.RestAssured;
 import io.restassured.http.Headers;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import io.restassured.response.ResponseBody;
 import org.hamcrest.Matchers;
 import org.hamcrest.number.OrderingComparison;
 import org.testng.annotations.Test;
@@ -12,22 +10,19 @@ import org.testng.annotations.Test;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.Matchers.greaterThan;
 import static org.testng.AssertJUnit.assertEquals;
 
-public class BasicTestJava {
+public class GetResponseAndHeaderValidation {
 
     public static final String BASE_URL = "https://api.github.com";
     public static final String CONTENT_TYPE = "application/json; charset=utf-8";
 
     Map<String, String> expectedHeaders = Map.of("content-encoding", "gzip",
-                                                "access-control-allow-origin", "*");
+            "access-control-allow-origin", "*");
 
     @Test
     public void convenienceMethods()
@@ -52,11 +47,11 @@ public class BasicTestJava {
         RestAssured.get(BASE_URL)
                 .then()
                 .assertThat()
-                    .statusCode(200)
+                .statusCode(200)
                 .and()
-                    .contentType(CONTENT_TYPE)
+                .contentType(CONTENT_TYPE)
                 .and().assertThat()
-                    .header("x-ratelimit-limit", "60");
+                .header("x-ratelimit-limit", "60");
     }
 
     @Test
